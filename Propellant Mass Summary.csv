@@ -1,7 +1,14 @@
 
-Column1, Column2, Column3
+Maneuver, Delta-V (feet/second), Thruster (pounds), Propellant (pounds)
 
-Value1, Value2, Value3
-Value4, Value5, Value6
- 
- <br>
+Injection, 4767, 110, 2924
+
+On-Orbit,
+
+N/S
+
+E/W,98, 5, 46
+
+Other, 300 5 138
+
+Total,7732,  ,4284
