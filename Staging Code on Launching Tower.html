@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rocket Launch Simulation</title>
+    <style>
+        canvas {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="rocketCanvas" width="800" height="600"></canvas>
+
+    <script>
+        // Get the canvas element and context
+        const canvas = document.getElementById('rocketCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Rocket properties
+        const rocketWidth = 20;
+        const rocketHeight = 60;
+        const exhaustWidth = 10;
+        const exhaustHeight = 20;
+        const launchTowerHeight = 100;
+        const launchTowerTop = canvas.height - launchTowerHeight;
+
+        // Rocket position
+        let rocketX = canvas.width / 2 - rocketWidth / 2;
+        let rocketY = -rocketHeight;
+
+        // Animation loop
+        function animateRocketLaunch() {
+            // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Update sky color
+            const skyColor = interpolateColors('rgb(0, 0, 0)', 'rgb(135, 206, 235)', (rocketY + rocketHeight) / (launchTowerTop + rocketHeight));
+            ctx.fillStyle = skyColor;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw launch tower
+            if (rocketY >= -rocketHeight + launchTowerHeight && rocketY < launchTowerTop) {
+                ctx.fillStyle = 'gray';
+                ctx.fillRect(canvas.width / 2 - 25, launchTowerTop, 50, launchTowerHeight);
+            }
+
+            // Draw rocket
+            ctx.fillStyle = 'red';
+            ctx.beginPath();
+            ctx.moveTo(rocketX, rocketY + rocketHeight);
+            ctx.lineTo(rocketX + rocketWidth / 2, rocketY);
+            ctx.lineTo(rocketX + rocketWidth, rocketY + rocketHeight);
+            ctx.closePath();
+            ctx.fill();
+
+            // Draw exhaust with animated fire ejection
+            ctx.fillStyle = 'orange';
+            ctx.fillRect(rocketX + rocketWidth / 2 - exhaustWidth / 2, rocketY + rocketHeight, exhaustWidth, exhaustHeight * Math.random());
+
+            // Update rocket position
+            rocketY += 2;
+
+            // Check if staging completed
+            if (rocketY >= launchTowerTop) {
+                rocketY = launchTowerTop;
+            }
+
+            // Request next frame
+            requestAnimationFrame(animateRocketLaunch);
+        }
+
+        // Color interpolation function
+        function interpolateColors(color1, color2, ratio) {
+            const rgb1 = colorToRgb(color1);
+            const rgb2 = colorToRgb(color2);
+
+            const r = Math.round(interpolate(rgb1.r, rgb2.r, ratio));
+            const g = Math.round(interpolate(rgb1.g, rgb2.g, ratio));
+            const b = Math.round(interpolate(rgb1.b, rgb2.b, ratio));
+
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+
+        // Helper function to interpolate between two values
+        function interpolate(value1, value2, ratio) {
+            return value1 + (value2 - value1) * ratio;
+        }
+
+        // Helper function to convert color string to RGB object
+        function colorToRgb(color) {
+            const canvas = document.createElement('canvas');
+            canvas.width = canvas.height = 1;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = color;
+            ctx.fillRect(0, 0, 1, 1);
+            const data = ctx.getImageData(0, 0, 1, 1).data;
+            return { r: data[0], g: data[1], b: data[2] };
+        }
+
+        // Show the launch tower after 3-4 seconds
+        setTimeout(() => {
+            animateRocketLaunch();
+        }, 3000);
+
+    </script>
+</body>
+</html>
+
+
