@@ -3,9 +3,9 @@ Maneuver, Delta-V (feet/second), Thruster (pounds), Propellant (pounds)
 
 Injection, 4767, 110, 2924
 
-On-Orbit,
+On-Orbit,2965, 5, 1360
 
-N/S
+N/S,2460, 5 ,1016
 
 E/W,98, 5, 46
 
