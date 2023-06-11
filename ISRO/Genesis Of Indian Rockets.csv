@@ -1,0 +1,10 @@
+
+Launch Vechiles, Height(m), Lift-Off Weight(Tonnnes(t)), Propulsion, Payload Mass, Orbit
+SLV-3,22.7m,17t,All Solid, 40kg, Low Earth Orbit
+ASLV,23.5m,39t,All Solid,150 kg, Low Earth Orbit
+PSLV-XL,44m,320t,Solid & Liquid, 1860 kg, 475km Sun Synchronous Polar orbit (1300kg in Geosynchronous Transfer Orbit)
+GSLV Mk II,49m,414t, Solid Liquid & Cryogenic,2200kg, Geosynchronous Transfer Orbit
+GSLV Mk III,43.43m,620t,Solid Liquid & Cryogenic, 4000 kg, Geosynchronous Transfer Orbit
+
+
+
